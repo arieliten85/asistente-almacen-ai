@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { Package } from "lucide-react";
+import NavLinks from "@/components/layout/NavLinks";
 
 export default function DashboardLayout({
   children,
@@ -8,29 +8,22 @@ export default function DashboardLayout({
 }) {
   return (
     <div className="min-h-screen bg-gray-950">
-      {/* Navbar */}
-      <nav className="bg-gray-900 border-b border-gray-800 px-6 py-3 flex items-center gap-6">
-        <div className="flex items-center gap-2 mr-4">
-          <div className="w-7 h-7 bg-blue-600 rounded-lg flex items-center justify-center">
-            <Package size={14} className="text-white" />
+      <header className="sticky top-0 z-10 border-b border-gray-800 bg-gray-950/80 backdrop-blur">
+        <nav className="mx-auto flex h-14 w-full max-w-6xl items-center gap-6 px-6">
+          <div className="flex items-center gap-2.5">
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-600">
+              <Package size={14} className="text-white" />
+            </div>
+            <span className="whitespace-nowrap text-sm font-semibold text-white">
+              Almacén IA
+            </span>
           </div>
-          <span className="text-sm font-semibold text-white">Almacén IA</span>
-        </div>
-        <Link
-          href="/panel"
-          className="text-sm text-gray-400 hover:text-white transition-colors"
-        >
-          Panel
-        </Link>
-        <Link
-          href="/chat"
-          className="text-sm text-gray-400 hover:text-white transition-colors"
-        >
-          Asistente
-        </Link>
-      </nav>
+          <div className="h-5 w-px bg-gray-800" aria-hidden="true" />
+          <NavLinks />
+        </nav>
+      </header>
 
-      <main className="p-6">{children}</main>
+      <main className="mx-auto w-full max-w-6xl p-6">{children}</main>
     </div>
   );
 }
