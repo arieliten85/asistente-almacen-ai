@@ -15,7 +15,7 @@ const SUGGESTIONS = [
 ];
 
 export default function ChatWindow() {
-  const { messages, input, handleInputChange, handleSubmit, isLoading } =
+  const { messages, input, handleInputChange, handleSubmit, isLoading, append } =
     useChat({ api: "/api/chat" });
 
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -45,9 +45,7 @@ export default function ChatWindow() {
               {SUGGESTIONS.map((s) => (
                 <button
                   key={s}
-                  onClick={() => {
-                    handleInputChange({ target: { value: s } } as React.ChangeEvent<HTMLInputElement>);
-                  }}
+                  onClick={() => append({ role: "user", content: s })}
                   className="text-xs bg-gray-800 hover:bg-gray-700 text-gray-300 border border-gray-700 rounded-lg px-3 py-2 transition-colors"
                 >
                   {s}

@@ -87,7 +87,8 @@ export const ventasDelPeriodo = tool({
 
     // Agrupar por producto
     const porProducto: Record<string, { nombre: string; cantidad: number; total: number }> = {};
-    ventas.forEach((v: any) => {
+    // Supabase infiere el join product como array; casteamos a any
+    ventas.forEach((v: any) => { // eslint-disable-line @typescript-eslint/no-explicit-any
       const nombre = v.product?.name ?? "Desconocido";
       if (!porProducto[nombre]) porProducto[nombre] = { nombre, cantidad: 0, total: 0 };
       porProducto[nombre].cantidad += Number(v.quantity);
@@ -153,8 +154,8 @@ export const productoMasVendido = tool({
     if (error) return { error: error.message };
 
     const porProducto: Record<string, { nombre: string; categoria: string; cantidad: number; total: number }> = {};
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (data ?? []).forEach((v: any) => {
+    // Supabase infiere joins como arrays; casteamos a any para acceder a las propiedades
+    (data ?? []).forEach((v: any) => { // eslint-disable-line @typescript-eslint/no-explicit-any
       const nombre = v.product?.name ?? "Desconocido";
       if (!porProducto[nombre]) {
         porProducto[nombre] = { nombre, categoria: v.product?.category ?? "", cantidad: 0, total: 0 };

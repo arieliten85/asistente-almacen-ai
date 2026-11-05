@@ -17,16 +17,3 @@ export interface Sale {
   sold_at: string;
   product?: Product;
 }
-
-export interface StockAlert {
-  product: Product;
-  current_stock: number;
-  min_stock: number;
-  shortage: number;
-}
-
-export interface DailySales {
-  date: string;
-  total: number;
-  transactions: number;
-}

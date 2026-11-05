@@ -3,7 +3,7 @@ import ChatWindow from "@/components/chat/ChatWindow";
 
 export default function ChatPage() {
   return (
-    <div className="h-full flex flex-col">
+    <div className="flex flex-1 flex-col">
       <div className="p-6 pb-0">
         <h1 className="text-xl font-semibold text-white">Asistente IA</h1>
         <p className="text-sm text-gray-500 mt-0.5">

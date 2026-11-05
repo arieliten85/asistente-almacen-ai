@@ -7,7 +7,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-gray-950">
+    <div className="flex min-h-screen flex-col bg-gray-950">
       <header className="sticky top-0 z-10 border-b border-gray-800 bg-gray-950/80 backdrop-blur">
         <nav className="mx-auto flex h-14 w-full max-w-6xl items-center gap-6 px-6">
           <div className="flex items-center gap-2.5">
@@ -23,7 +23,7 @@ export default function DashboardLayout({
         </nav>
       </header>
 
-      <main className="mx-auto w-full max-w-6xl p-6">{children}</main>
+      <main className="mx-auto w-full max-w-6xl flex-1 p-6">{children}</main>
     </div>
   );
 }
