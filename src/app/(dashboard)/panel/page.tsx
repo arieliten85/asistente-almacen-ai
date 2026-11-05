@@ -1,7 +1,22 @@
+import { Suspense } from "react";
+import { io } from "next/cache";
 import { supabase } from "@/lib/supabase";
 import { Package, DollarSign, AlertTriangle } from "lucide-react";
 
-export default async function PanelPage() {
+export default function PanelPage() {
+  return (
+    <Suspense
+      fallback={<p className="text-sm text-gray-500">Cargando panel...</p>}
+    >
+      <PanelContent />
+    </Suspense>
+  );
+}
+
+async function PanelContent() {
+  // La fecha debe calcularse por request, no durante el prerender
+  await io();
+
   // Traemos los datos del almacén desde Supabase
   const hoy = new Date();
   hoy.setHours(0, 0, 0, 0);

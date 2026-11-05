@@ -11,6 +11,7 @@ const SUGGESTIONS = [
   "¿Cuánto vendimos hoy?",
   "Buscar yerba mate",
   "¿Cuáles fueron las ventas de esta semana?",
+  "¿Qué se vende más?",
 ];
 
 export default function ChatWindow() {
