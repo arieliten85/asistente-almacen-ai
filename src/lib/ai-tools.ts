@@ -87,7 +87,7 @@ export const ventasDelPeriodo = tool({
 
     // Agrupar por producto
     const porProducto: Record<string, { nombre: string; cantidad: number; total: number }> = {};
-    ventas.forEach((v) => {
+    ventas.forEach((v: any) => {
       const nombre = v.product?.name ?? "Desconocido";
       if (!porProducto[nombre]) porProducto[nombre] = { nombre, cantidad: 0, total: 0 };
       porProducto[nombre].cantidad += Number(v.quantity);
@@ -153,7 +153,8 @@ export const productoMasVendido = tool({
     if (error) return { error: error.message };
 
     const porProducto: Record<string, { nombre: string; categoria: string; cantidad: number; total: number }> = {};
-    (data ?? []).forEach((v) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (data ?? []).forEach((v: any) => {
       const nombre = v.product?.name ?? "Desconocido";
       if (!porProducto[nombre]) {
         porProducto[nombre] = { nombre, categoria: v.product?.category ?? "", cantidad: 0, total: 0 };
