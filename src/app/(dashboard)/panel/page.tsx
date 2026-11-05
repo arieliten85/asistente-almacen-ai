@@ -18,14 +18,15 @@ async function PanelContent() {
   await io();
 
   // Traemos los datos del almacén desde Supabase
-  const hoy = new Date();
-  hoy.setHours(0, 0, 0, 0);
+  // Usamos medianoche UTC para que coincida con cómo se guardaron los datos del seed
+  const ahora = new Date();
+  const hoyUTC = new Date(Date.UTC(ahora.getUTCFullYear(), ahora.getUTCMonth(), ahora.getUTCDate()));
 
   const { data: productos } = await supabase.from("products").select("*");
   const { data: ventasHoy } = await supabase
     .from("sales")
     .select("total")
-    .gte("sold_at", hoy.toISOString());
+    .gte("sold_at", hoyUTC.toISOString());
 
   const listaProductos = productos ?? [];
   const totalVentasHoy = (ventasHoy ?? []).reduce(
