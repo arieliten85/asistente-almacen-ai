@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, MessageSquare } from "lucide-react";
+import { LayoutDashboard, Bot } from "lucide-react";
 
 const LINKS = [
   { href: "/panel", label: "Panel", icon: LayoutDashboard },
-  { href: "/chat", label: "Asistente", icon: MessageSquare },
+  { href: "/chat", label: "Asistente", icon: Bot },
 ];
 
 export default function NavLinks() {
