@@ -1,6 +1,8 @@
-# Asistente Almacén IA
+# Comerzia
 
-App de gestión para un almacén argentino con asistente de inteligencia artificial integrado. El dueño puede consultar stock, productos y ventas desde un panel estático o preguntarle directamente al chat en lenguaje natural.
+> Gestión inteligente para tu negocio.
+
+App de gestión para comercios minoristas argentinos con asistente de inteligencia artificial integrado. El dueño puede consultar stock, productos y ventas desde un panel estático o preguntarle directamente al chat en lenguaje natural.
 
 ## Demo
 

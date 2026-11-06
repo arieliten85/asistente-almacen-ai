@@ -2,21 +2,23 @@
 
 import { useChat } from "ai/react";
 import { useRef, useEffect } from "react";
-import { Send, Bot, Loader2 } from "lucide-react";
+import { Send, Sparkles, Loader2, RotateCcw } from "lucide-react";
 import ChatMessage from "./ChatMessage";
+import ChatWelcome from "./ChatWelcome";
 import { cn } from "@/lib/utils";
 
-const SUGGESTIONS = [
-  "¿Qué productos tienen poco stock?",
-  "¿Cuánto vendimos hoy?",
-  "Buscar yerba mate",
-  "¿Cuáles fueron las ventas de esta semana?",
-  "¿Qué se vende más?",
-];
-
 export default function ChatWindow() {
-  const { messages, input, handleInputChange, handleSubmit, isLoading, append } =
-    useChat({ api: "/api/chat" });
+  const {
+    messages,
+    input,
+    handleInputChange,
+    handleSubmit,
+    isLoading,
+    append,
+    setMessages,
+    setInput,
+    stop,
+  } = useChat({ api: "/api/chat" });
 
   const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -26,73 +28,78 @@ export default function ChatWindow() {
 
   const isEmpty = messages.length === 0;
 
+  // Corta la respuesta en curso y vuelve a la pantalla inicial
+  function handleReset() {
+    stop();
+    setMessages([]);
+    setInput("");
+  }
+
   return (
-    <div className="h-full bg-gray-900 border border-gray-800 rounded-xl flex flex-col overflow-hidden">
+    <div className="surface h-full rounded-2xl flex flex-col overflow-hidden">
+      {/* Barra superior: solo con conversación iniciada */}
+      {!isEmpty && (
+        <div className="relative flex justify-end border-b border-blue-500/20 px-4 py-2">
+          <button
+            type="button"
+            onClick={handleReset}
+            className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm text-gray-400 transition-colors hover:bg-gray-800 hover:text-white"
+          >
+            <RotateCcw size={14} />
+            Nueva conversación
+          </button>
+        </div>
+      )}
+
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      <div className="relative flex-1 overflow-y-auto p-4 space-y-4">
         {isEmpty ? (
-          <div className="h-full flex flex-col items-center justify-center text-center px-6">
-            <div className="w-12 h-12 bg-blue-600/20 rounded-2xl flex items-center justify-center mb-4">
-              <Bot size={24} className="text-blue-400" />
-            </div>
-            <h2 className="text-base font-medium text-white mb-1">
-              Asistente del almacén
-            </h2>
-            <p className="text-sm text-gray-500 mb-6">
-              Consultá stock, ventas y productos en lenguaje natural.
-            </p>
-            <div className="flex flex-wrap gap-2 justify-center">
-              {SUGGESTIONS.map((s) => (
-                <button
-                  key={s}
-                  onClick={() => append({ role: "user", content: s })}
-                  className="text-xs bg-gray-800 hover:bg-gray-700 text-gray-300 border border-gray-700 rounded-lg px-3 py-2 transition-colors"
-                >
-                  {s}
-                </button>
-              ))}
-            </div>
-          </div>
+          <ChatWelcome onSelect={(q) => append({ role: "user", content: q })} />
         ) : (
           messages.map((m) => <ChatMessage key={m.id} message={m} />)
         )}
 
         {isLoading && (
           <div className="flex gap-3 items-start">
-            <div className="w-7 h-7 bg-blue-600 rounded-full flex items-center justify-center shrink-0 mt-0.5">
-              <Bot size={14} className="text-white" />
+            <div className="w-7 h-7 bg-blue-600 rounded-lg flex items-center justify-center shrink-0 mt-0.5">
+              <Sparkles size={14} className="text-white" />
             </div>
-            <div className="bg-gray-800 rounded-xl px-4 py-3">
-              <Loader2 size={16} className="text-gray-400 animate-spin" />
+            <div className="bg-white border border-gray-200 rounded-xl px-4 py-3">
+              <Loader2 size={16} className="text-gray-500 animate-spin" />
             </div>
           </div>
         )}
 
-        <div ref={bottomRef} />
+        {!isEmpty && <div ref={bottomRef} />}
       </div>
 
       {/* Input */}
-      <div className="p-4 border-t border-gray-800">
-        <form onSubmit={handleSubmit} className="flex gap-2">
-          <input
-            value={input}
-            onChange={handleInputChange}
-            placeholder="Preguntá algo sobre el almacén..."
-            disabled={isLoading}
-            className="flex-1 bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:opacity-50"
-          />
-          <button
-            type="submit"
-            disabled={isLoading || !input.trim()}
-            className={cn(
-              "w-10 h-10 rounded-xl flex items-center justify-center transition-colors shrink-0",
-              isLoading || !input.trim()
-                ? "bg-gray-800 text-gray-600 cursor-not-allowed"
-                : "bg-blue-600 hover:bg-blue-500 text-white"
-            )}
-          >
-            <Send size={16} />
-          </button>
+      <div className="relative p-4">
+        <form onSubmit={handleSubmit} className="flex items-center gap-3">
+           
+          <div className="relative flex-1">
+            <input
+              value={input}
+              onChange={handleInputChange}
+              placeholder="Preguntá algo sobre tu negocio..."
+              disabled={isLoading}
+              className="h-14 w-full rounded-full bg-field pl-6 pr-20 text-base text-gray-900 caret-blue-600 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:opacity-70"
+            />
+            <span className="absolute right-15 top-1/2 h-6 w-px -translate-y-1/2 bg-gray-400" aria-hidden="true" />
+            <button
+              type="submit"
+              aria-label="Enviar"
+              disabled={isLoading || !input.trim()}
+              className={cn(
+                "absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full text-white transition-colors",
+                isLoading || !input.trim()
+                  ? "bg-blue-600/50 cursor-not-allowed"
+                  : "bg-blue-600 hover:bg-blue-500"
+              )}
+            >
+              <Send size={18} />
+            </button>
+          </div>
         </form>
       </div>
     </div>

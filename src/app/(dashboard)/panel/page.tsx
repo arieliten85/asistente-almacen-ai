@@ -61,7 +61,7 @@ async function PanelContent() {
     <div className="space-y-8">
       <header>
         <h1 className="text-2xl font-semibold tracking-tight text-white">
-          Panel del almacén
+          Panel del negocio
         </h1>
         <p className="mt-1 text-sm text-gray-400 first-letter:uppercase">
           {dateFormatter.format(ahora)}
@@ -77,7 +77,7 @@ async function PanelContent() {
           value={currencyFormatter.format(totalVentasHoy)}
           detail={`${listaVentas.length} ${listaVentas.length === 1 ? "operación" : "operaciones"}`}
           icon={DollarSign}
-          iconClassName="bg-emerald-500/10 text-emerald-400"
+          iconClassName="bg-cyan-400/10 text-cyan-300"
         />
         <StatCard
           label="Productos"
@@ -95,12 +95,12 @@ async function PanelContent() {
         />
       </section>
 
-      <section className="overflow-hidden rounded-xl border border-gray-800 bg-gray-900/60">
-        <div className="border-b border-gray-800 px-5 py-4">
+      <section className="surface overflow-hidden rounded-2xl">
+        <div className="border-b border-blue-500/20 px-5 py-4">
           <h2 className="text-sm font-semibold text-white">
             Productos con poco stock
           </h2>
-          <p className="mt-0.5 text-xs text-gray-500">
+          <p className="mt-0.5 text-xs text-gray-400">
             Ordenados del más urgente al menos urgente
           </p>
         </div>
@@ -111,7 +111,7 @@ async function PanelContent() {
             Todos los productos tienen stock suficiente.
           </div>
         ) : (
-          <ul className="divide-y divide-gray-800">
+          <ul className="divide-y divide-blue-500/15">
             {alertasStock.map((p) => {
               const ratio = Math.max(p.stock / p.min_stock, 0);
               const isCritical = ratio < CRITICAL_STOCK_RATIO;
@@ -125,7 +125,7 @@ async function PanelContent() {
                     {p.name}
                   </span>
                   <div
-                    className="order-last col-span-2 h-1.5 overflow-hidden rounded-full bg-gray-800 sm:order-none sm:col-span-1"
+                    className="order-last col-span-2 h-1.5 overflow-hidden rounded-full bg-blue-500/15 sm:order-none sm:col-span-1"
                     aria-hidden="true"
                   >
                     <div
@@ -169,7 +169,7 @@ function StatCard({
   iconClassName: string;
 }) {
   return (
-    <div className="rounded-xl border border-gray-800 bg-gray-900/60 p-5">
+    <div className="surface rounded-2xl p-5">
       <div className="flex items-center justify-between">
         <span className="text-sm text-gray-400">{label}</span>
         <span
@@ -181,7 +181,7 @@ function StatCard({
       <p className="mt-3 text-3xl font-semibold tracking-tight tabular-nums text-white">
         {value}
       </p>
-      <p className="mt-1 text-xs text-gray-500">{detail}</p>
+      <p className="mt-1 text-xs text-gray-400">{detail}</p>
     </div>
   );
 }
@@ -194,15 +194,15 @@ function PanelSkeleton() {
       className="animate-pulse space-y-8"
     >
       <div className="space-y-2">
-        <div className="h-8 w-56 rounded-md bg-gray-800" />
-        <div className="h-4 w-40 rounded-md bg-gray-800/60" />
+        <div className="h-8 w-56 rounded-md bg-blue-500/15" />
+        <div className="h-4 w-40 rounded-md bg-blue-500/10" />
       </div>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         {[0, 1, 2].map((i) => (
-          <div key={i} className="h-33 rounded-xl bg-gray-900" />
+          <div key={i} className="surface h-33 rounded-2xl" />
         ))}
       </div>
-      <div className="h-56 rounded-xl bg-gray-900" />
+      <div className="surface h-56 rounded-2xl" />
     </div>
   );
 }

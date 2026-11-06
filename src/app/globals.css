@@ -5,6 +5,16 @@
   --foreground: #f9fafb;
 }
 
+/* Relleno claro del campo de texto del chat */
+@theme {
+  --color-field: #f3e6e6;
+}
+
+/* Superficie común de la app: tarjetas del panel y recuadro del chat */
+@utility surface {
+  @apply border border-blue-500/25 bg-linear-to-br from-blue-950/70 via-gray-900/70 to-gray-950/70;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -23,9 +33,9 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #374151;
+  background: #1e3a8a;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #4b5563;
+  background: #1d4ed8;
 }

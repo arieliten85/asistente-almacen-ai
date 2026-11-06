@@ -5,8 +5,8 @@ import "./globals.css";
 const geist = Geist({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Asistente Almacén IA",
-  description: "Panel de gestión con asistente inteligente para tu almacén",
+  title: "Almi",
+  description: "Almi · Asistente inteligente para tu negocio",
 };
 
 export default function RootLayout({
