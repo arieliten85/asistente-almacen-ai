@@ -17,9 +17,9 @@ export default function DashboardLayout({
       <header className="sticky top-0 z-10 border-b border-blue-500/20 bg-gray-950/80 backdrop-blur">
         <nav className="mx-auto flex h-14 w-full max-w-6xl items-center gap-6 px-6">
           <Image
-            src="/logo.png"
-            alt="Almi"
-            width={54}
+            src="/logo-comerzia-full.png"
+            alt="Comerzia"
+            width={122}
             height={36}
             priority
           />

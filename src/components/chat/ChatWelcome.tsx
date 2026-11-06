@@ -34,7 +34,7 @@ export default function ChatWelcome({ onSelect }: Props) {
       <div className="relative mb-5">
         <div className="absolute inset-0 rounded-2xl bg-blue-500/40 blur-xl" aria-hidden="true" />
         <Image
-          src="/logo-almi.png"
+          src="/logo-comerzia.png"
           alt=""
           width={72}
           height={72}
