@@ -46,7 +46,7 @@ export default function ChatWelcome({ onSelect }: Props) {
       {/* Presentación */}
       <h2 className="text-3xl tracking-tight text-white">
         <span className="font-normal text-gray-300">¡Hola!</span>{" "}
-        <span className="font-semibold">Soy Almi</span> 👋
+        <span className="font-semibold">Soy Almi</span>
       </h2>
       <p className="mt-2 text-base text-gray-400">
         Tu asistente inteligente. ¿En qué puedo ayudarte hoy?
